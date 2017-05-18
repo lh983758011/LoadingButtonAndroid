@@ -1,7 +1,5 @@
 package br.com.simplepass.loading_button_lib.animatedDrawables;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -82,7 +80,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
         mRunning = true;
         mValueAnimatorAngle.start();
-        mValueAnimatorSweep.start();
+//        mValueAnimatorSweep.start();
     }
 
     /**
@@ -96,7 +94,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
         mRunning = false;
         mValueAnimatorAngle.cancel();
-        mValueAnimatorSweep.cancel();
+//        mValueAnimatorSweep.cancel();
     }
 
     /**
@@ -115,16 +113,16 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
      */
     @Override
     public void draw(Canvas canvas) {
-        float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
-        float sweepAngle = mCurrentSweepAngle;
-        if (!mModeAppearing) {
-            startAngle = startAngle + sweepAngle;
-            sweepAngle = 360 - sweepAngle - MIN_SWEEP_ANGLE;
-        } else {
-            sweepAngle += MIN_SWEEP_ANGLE;
-        }
-
-        canvas.drawArc(fBounds, startAngle, sweepAngle, false, mPaint);
+//        float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
+//        float sweepAngle = mCurrentSweepAngle;
+//        if (!mModeAppearing) {
+//            startAngle = startAngle + sweepAngle;
+//            sweepAngle = 360 - sweepAngle - MIN_SWEEP_ANGLE;
+//        } else {
+//            sweepAngle += MIN_SWEEP_ANGLE;
+//        }
+        float startAngle = mCurrentGlobalAngle;
+        canvas.drawArc(fBounds, 0, startAngle, false, mPaint);
     }
 
     @Override
@@ -168,7 +166,6 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         mValueAnimatorAngle = ValueAnimator.ofFloat(0, 360f);
         mValueAnimatorAngle.setInterpolator(ANGLE_INTERPOLATOR);
         mValueAnimatorAngle.setDuration(ANGLE_ANIMATOR_DURATION);
-        mValueAnimatorAngle.setRepeatCount(ValueAnimator.INFINITE);
         mValueAnimatorAngle.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -177,23 +174,23 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
             }
         });
 
-        mValueAnimatorSweep = ValueAnimator.ofFloat(0, 360f - 2 * MIN_SWEEP_ANGLE);
-        mValueAnimatorSweep.setInterpolator(SWEEP_INTERPOLATOR);
-        mValueAnimatorSweep.setDuration(SWEEP_ANIMATOR_DURATION);
-        mValueAnimatorSweep.setRepeatCount(ValueAnimator.INFINITE);
-        mValueAnimatorSweep.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                toggleAppearingMode();
-            }
-        });
-        mValueAnimatorSweep.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                setCurrentSweepAngle((float)animation.getAnimatedValue());
-                mAnimatedView.invalidate();
-            }
-        });
+//        mValueAnimatorSweep = ValueAnimator.ofFloat(0, 360f - 2 * MIN_SWEEP_ANGLE);
+//        mValueAnimatorSweep.setInterpolator(SWEEP_INTERPOLATOR);
+//        mValueAnimatorSweep.setDuration(SWEEP_ANIMATOR_DURATION);
+//        mValueAnimatorSweep.setRepeatCount(ValueAnimator.INFINITE);
+//        mValueAnimatorSweep.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//                toggleAppearingMode();
+//            }
+//        });
+//        mValueAnimatorSweep.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                setCurrentSweepAngle((float)animation.getAnimatedValue());
+//                mAnimatedView.invalidate();
+//            }
+//        });
 
     }
 
@@ -218,12 +215,12 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
         mValueAnimatorAngle = null;
 
-        if (mValueAnimatorSweep != null) {
-            mValueAnimatorSweep.end();
-            mValueAnimatorSweep.removeAllUpdateListeners();
-            mValueAnimatorSweep.cancel();
-        }
-
-        mValueAnimatorSweep = null;
+//        if (mValueAnimatorSweep != null) {
+//            mValueAnimatorSweep.end();
+//            mValueAnimatorSweep.removeAllUpdateListeners();
+//            mValueAnimatorSweep.cancel();
+//        }
+//
+//        mValueAnimatorSweep = null;
     }
 }

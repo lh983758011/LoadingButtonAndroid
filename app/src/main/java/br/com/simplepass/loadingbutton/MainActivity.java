@@ -1,20 +1,17 @@
 package br.com.simplepass.loadingbutton;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Pair;
 
-import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton;
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 progressButtonChangeActivity.startAnimation();
 
                 Runnable runnable = () -> {
-                    progressButtonChangeActivity.stopAnimation();
+                    progressButtonChangeActivity.revertAnimation();
 
-                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
-                            this,
-                            new Pair<>(findViewById(R.id.progress_btn_change_activity), "transition"));
-
-                    startActivity(intent, activityOptions.toBundle());
+//                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+//                            this,
+//                            new Pair<>(findViewById(R.id.progress_btn_change_activity), "transition"));
+//
+//                    startActivity(intent, activityOptions.toBundle());
 
                 };
 
